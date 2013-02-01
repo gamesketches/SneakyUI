@@ -18,3 +18,22 @@ Crafty.c("UIElement", {
 		this.addComponent("2D, Canvas, Text");
 		}
 	});
+
+Crafty.c("TemperatureBlock", {
+	temp: 0,
+	init: function() {
+		this.addComponent("2D, Canvas, Collision");
+		},
+	setTemp: function(e) {
+		this.temp = e;
+		if(this.temp > 75) {
+			this.addComponent("Hot");
+		}
+		else if(this.temp <= 75 >= 40) {
+			this.addComponent("RoomTemperature");
+		}
+		else {
+			this.addComponent("Cold");
+		}
+	}
+	});
