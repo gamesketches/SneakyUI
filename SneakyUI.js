@@ -8,4 +8,6 @@ window.onload = (function() {
 
 	Crafty.e("Player").attr({x: 500, y: 300, w: 400, h: 50}).color("#0000FF");
 
+	Crafty.e("Door").attr({x: 500, y: 300, w: 400, h: 50}).color("#FF0000");
+
 });

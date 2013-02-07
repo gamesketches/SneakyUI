@@ -1,10 +1,15 @@
 Crafty.c("Player", {
 	contactTemp: "room",
 	init: function() {
-		this.addComponent("2D, Canvas, Color, Collision, Gravity, Twoway");
+		this.addComponent("2D, Canvas, Color, Collision, Gravity, Twoway, Keyboard");
 		this.twoway(10, 7);
 		//this.gravity("Ground");
 		this.bind("EnterFrame", function() {
+			booya = this.hit("Door");
+			if(booya.length > 0) {
+				theDoor = booya[0];
+				console.log(theDoor.destination);
+				}			
 			if(this.contactTemp == "room") {
 				this.w -= 0.1;
 				}
@@ -15,8 +20,9 @@ Crafty.c("Player", {
 				tihs.w += 0.1;
 				}
 			});
-		}
-	});
+		this.collision();
+	}
+});
 
 Crafty.c("Ground", {
 	init: function() {
@@ -47,5 +53,13 @@ Crafty.c("TemperatureBlock", {
 		else {
 			this.addComponent("Cold");
 		}
+	}
+	});
+
+Crafty.c("Door", {
+	destination: 100,
+	init: function() {
+		this.addComponent("2D, Canvas, Color, Collision");
+		this.collision();
 	}
 	});
