@@ -3,12 +3,12 @@ Crafty.c("Player", {
 	init: function() {
 		this.addComponent("2D, Canvas, Color, Collision, Gravity, Twoway, Keyboard");
 		this.twoway(10, 7);
-		//this.gravity("Ground");
+		this.gravity("Ground");
 		this.bind("EnterFrame", function() {
 			booya = this.hit("Door");
 			if(booya.length > 0) {
 				theDoor = booya[0];
-				console.log(theDoor.destination);
+				//console.log(theDoor.destination);
 				}			
 			if(this.contactTemp == "room") {
 				this.w -= 0.1;
@@ -20,6 +20,15 @@ Crafty.c("Player", {
 				tihs.w += 0.1;
 				}
 			});
+		this.bind("KeyDown", function() {
+			if(this.isDown("UP_ARROW")) {
+				booya = this.hit("Door");
+				if(booya.length > 0) {
+					theDoor = booya[0];
+					this.x = theDoor.obj.destination;
+					}
+			}
+		});
 		this.collision();
 	}
 });
