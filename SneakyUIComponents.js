@@ -1,28 +1,37 @@
 Crafty.c("Player", {
-	contactTemp: "room",
+	contactTemp: "RoomTemperature",
 	init: function() {
 		this.addComponent("2D, Canvas, Color, Collision, Gravity, Twoway, Keyboard");
 		this.twoway(10, 7);
 		this.gravity("Ground");
 		this.bind("EnterFrame", function() {
-			booya = this.hit("Door");
-			if(booya.length > 0) {
-				theDoor = booya[0];
-				//console.log(theDoor.destination);
-				}			
-			if(this.contactTemp == "room") {
+			influences = this.hit("TemperatureBlock");
+			if(influences.length > 0) {
+				var curMax = 0;
+				for( var i = 0; i < influences.length; i++) {
+					if(influences[i].overlap > influences[curMax].overlap) {
+						curMax = i;
+						}
+					}
+				this.contactTemp = influences[curMax].obj.tempType;		
+				}
+			else {
+				this.contactTemp = "RoomTemperature";
+			}
+			if(this.contactTemp == "RoomTemperature") {
 				this.w -= 0.1;
 				}
-			else if (this.contactTemp == "hot") {
+			else if (this.contactTemp == "Hot") {
 				this.w -= 1;
 				}
 			else {	// Cold
-				tihs.w += 0.1;
+				this.w += 0.1;
 				}
 			});
 		this.bind("KeyDown", function() {
 			if(this.isDown("UP_ARROW")) {
 				booya = this.hit("Door");
+				console.log(booya);
 				if(booya.length > 0) {
 					theDoor = booya[0];
 					this.x = theDoor.obj.destination.x;
@@ -48,20 +57,21 @@ Crafty.c("UIElement", {
 	});
 
 Crafty.c("TemperatureBlock", {
-	temp: 0,
+	tempType: "RoomTemperature",
 	init: function() {
 		this.addComponent("2D, Canvas, Collision");
+		this.collision();
 		},
 	setTemp: function(e) {
 		this.temp = e;
 		if(this.temp > 75) {
-			this.addComponent("Hot");
+			this.tempType = "Hot";
 		}
 		else if(this.temp <= 75 >= 40) {
-			this.addComponent("RoomTemperature");
+			this.tempType = "RoomTemperature";
 		}
 		else {
-			this.addComponent("Cold");
+			this.tempType = "Cold";
 		}
 	}
 	});
@@ -80,5 +90,6 @@ Crafty.c("Door", {
 		else {
 			this.color("#FF0000");
 		}
+		Crafty.e("TemperatureBlock").attr({x: this.x, y: this.y, w: this.w, h: this.h}).setTemp(e.temp);
 	}
 	});
