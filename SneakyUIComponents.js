@@ -5,7 +5,7 @@ Crafty.c("Player", {
 		this.addComponent("2D, Canvas, Color, Collision, Gravity, Twoway, Keyboard");
 		this.twoway(10, 7);
 		this.gravity("Ground");
-		this.tempGauge = Crafty.e("UIElement").attr({x: this.x + 400, y: this.y + 300, w: 200, h: 200});
+		this.tempGauge = Crafty.e("UIElement").attr({x: this.x + 400, y: 400, w: 200, h: 200});
 		this.bind("EnterFrame", function() {
 			influences = this.hit("TemperatureBlock");
 			if(influences.length > 0) {
@@ -55,8 +55,7 @@ Crafty.c("Player", {
 		else {
 			this.tempGauge.addComponent("meterColdSprite");
 		}
-		this.tempGauge.x = this.x + 400;
-		this.tempGauge.y = this.y + 200;
+		this.tempGauge.x = this.x + 300;
 	}
 });
 
