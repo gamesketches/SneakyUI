@@ -1,9 +1,11 @@
 Crafty.c("Player", {
 	contactTemp: "RoomTemperature",
+	tempGauge: null,
 	init: function() {
 		this.addComponent("2D, Canvas, Color, Collision, Gravity, Twoway, Keyboard");
 		this.twoway(10, 7);
 		this.gravity("Ground");
+		this.tempGauge = Crafty.e("UIElement").attr({x: this.x + 400, y: this.y + 300, w: 200, h: 200});
 		this.bind("EnterFrame", function() {
 			influences = this.hit("TemperatureBlock");
 			if(influences.length > 0) {
@@ -22,11 +24,12 @@ Crafty.c("Player", {
 				this.w -= 0.1;
 				}
 			else if (this.contactTemp == "Hot") {
-				this.w -= 1;
+				this.w -= 0.5;
 				}
 			else {	// Cold
 				this.w += 0.1;
 				}
+			this.modifyTempGauge();
 			});
 		this.bind("KeyDown", function() {
 			if(this.isDown("UP_ARROW")) {
@@ -40,6 +43,20 @@ Crafty.c("Player", {
 			}
 		});
 		this.collision();
+	},
+	modifyTempGauge: function() {
+		this.tempGauge.removeOldSprite();
+		if(this.contactTemp == "RoomTemperature") {
+			this.tempGauge.addComponent("meterRoomSprite");
+			}
+		else if(this.contactTemp == "Hot") {
+			this.tempGauge.addComponent("meterHotSprite");
+			}
+		else {
+			this.tempGauge.addComponent("meterColdSprite");
+		}
+		this.tempGauge.x = this.x + 400;
+		this.tempGauge.y = this.y + 200;
 	}
 });
 
@@ -52,8 +69,11 @@ Crafty.c("Ground", {
 Crafty.c("UIElement", {
 	noise: 0,
 	init: function() {
-		this.addComponent("2D, Canvas, Text");
-		}
+		this.addComponent("2D, Canvas, Sprite");
+		},
+	removeOldSprite: function() {
+		this.removeComponent("meterColdSprite, meterHotSprite, meterRoomSprite");
+	}
 	});
 
 Crafty.c("TemperatureBlock", {
