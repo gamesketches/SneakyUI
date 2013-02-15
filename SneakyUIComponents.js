@@ -64,6 +64,7 @@ Crafty.c("Player", {
 Crafty.c("Ground", {
 	init: function() {
 		this.addComponent("2D, Canvas, Color");
+		this.color("#AAAAAA");
 	}
 	});
 
