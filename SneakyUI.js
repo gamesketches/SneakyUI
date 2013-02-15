@@ -68,6 +68,57 @@ window.onload = (function() {
 	door1.initializeVariables({destination: {x: 4000, y: 100}, color: "Blue", temp: 0, tempReading: "Cold"});
 
 	var door2 = Crafty.e("Door").attr({x: 7000, y: 300, w: 200, h: 300});
+	// Door to room 5.5
+	door2.initializeVariables({destination: {x: 9000, y: 300, w: 200, h: 300}, color: "Blue", temp: 100, tempReading: "Hot"});
+
+	var door3 = Crafty.e("Door").attr({x: 7500, y: 200, w: 200, h: 300});
+	// door to room 6
+	door3.initializeVariables({destination: {x: 10000, y: 100}, color: "Red", temp: 0, tempReading: "Cold"});
+
+	Crafty.e("Ground").attr({x:6300, y: 600, w: 1100, h: 10});
+	Crafty.e("Ground").attr({x: 7300, y: 500, w: 500, h: 110});
+
+	// Room 5.5 ------------------------------------------------
+
+	var door1 = Crafty.e("Door").attr({x: 9000, y: 300, w: 200, h: 300});
+	// Door back to room 5
+	door1.initializeVariables({destination: {x: 7000, y: 100}, color: "Red", temp: 100, tempReading: "Hot"});
+
+	Crafty.e("Ground").attr({x: 8800, y: 600, w: 500, h: 10});
+
+	// Room 6 --------------------------------------------------
+
+	var door1 = Crafty.e("Door").attr({x: 10000, y: 300, w: 200, h: 300});
+	// Door back to room 5
+	door1.initializeVariables({destination: {x: 7500, y: 100}, color: "Blue", temp: 0, tempReading: "Cold"});
+
+	var door2 = Crafty.e("Door").attr({x: 11000, y: 100, w: 200, h: 300});
+	// Door to room 7
+	door2.initializeVariables({destination: {x: 12000, y: 300}, color: "Blue", temp: 0, tempReading: "Cold"});
+
+	var door3 = Crafty.e("Door").attr({x: 11000, y: 500, w: 200, h: 50});
+	// Door to room 8
+	door3.initializeVariables({destination: {x: 13000, y: 300}, color: "Red", temp: 100, tempReading: "Hot"});
+
+	Crafty.e("Ground").attr({x: 9800, y: 600, w: 11500, h: 10});
+
+	// Room 7 --------------------------------------------------
+
+	var door1 = Crafty.e("Door").attr({x: 12000, y: 300, w: 200, h: 300});
+	// Door back to room 6
+	door1.initializeVariables({destination: {x: 11000, y: 100}, color: "Blue", temp: 0, tempReading: "Cold"});
+
+	var door2 = Crafty.e("Door").attr({x: 12500, y: 300, w: 200, h: 300});
+	// Door to Win
+	door2.initializeVariables({destination: {x: 15000, y: 100}, color: "Red", temp: 0, tempReading: "Hot"});
+
+	var door3 = Crafty.e("Door").attr({x: 13000, y: 100, w: 200, h: 300});
+	// Door to Lose
+	door3.initializeVariables({destination: {x: 16000, y: 100}, color: "Blue", temp: 100, tempReading: "Cold"});
+	
+	Crafty.e("Ground").attr({x: 11800, y: 600, w: 1200, h: 10});
+
+	// ---------------------------------------------------------
 
 
 	var player = Crafty.e("Player").attr({x: 500, y: 300, w: 100, h: 50}).color("#00FF00");
