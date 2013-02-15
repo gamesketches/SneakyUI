@@ -1,5 +1,6 @@
 Crafty.c("Player", {
 	contactTemp: "RoomTemperature",
+	tempReading: "Room",
 	tempGauge: null,
 	init: function() {
 		this.addComponent("2D, Canvas, Color, Collision, Gravity, Twoway, Keyboard");
@@ -15,10 +16,12 @@ Crafty.c("Player", {
 						curMax = i;
 						}
 					}
-				this.contactTemp = influences[curMax].obj.tempType;		
+				this.contactTemp = influences[curMax].obj.tempType;
+				this.tempReading = influences[curMax].obj.tempReading;
 				}
 			else {
 				this.contactTemp = "RoomTemperature";
+				this.tempReading = "RoomTemperature";
 			}
 			if(this.contactTemp == "RoomTemperature") {
 				this.w -= 0.1;
@@ -34,7 +37,6 @@ Crafty.c("Player", {
 		this.bind("KeyDown", function() {
 			if(this.isDown("UP_ARROW")) {
 				booya = this.hit("Door");
-				console.log(booya);
 				if(booya.length > 0) {
 					theDoor = booya[0];
 					this.x = theDoor.obj.destination.x;
@@ -46,10 +48,10 @@ Crafty.c("Player", {
 	},
 	modifyTempGauge: function() {
 		this.tempGauge.removeOldSprite();
-		if(this.contactTemp == "RoomTemperature") {
+		if(this.tempReading == "RoomTemperature") {
 			this.tempGauge.addComponent("meterRoomSprite");
 			}
-		else if(this.contactTemp == "Hot") {
+		else if(this.tempReading == "Hot") {
 			this.tempGauge.addComponent("meterHotSprite");
 			}
 		else {
@@ -77,21 +79,30 @@ Crafty.c("UIElement", {
 
 Crafty.c("TemperatureBlock", {
 	tempType: "RoomTemperature",
+	tempReading: "Room",
 	init: function() {
 		this.addComponent("2D, Canvas, Collision");
 		this.collision();
 		},
 	setTemp: function(e) {
-		this.temp = e;
-		if(this.temp > 75) {
+		var temp = e.temp;
+		console.log(e.temp);
+		if(temp > 75) {
 			this.tempType = "Hot";
+			
 		}
-		else if(this.temp <= 75 >= 40) {
+		else if(temp <= 75 >= 40) {
 			this.tempType = "RoomTemperature";
 		}
 		else {
 			this.tempType = "Cold";
 		}
+		if(e.tempReading == null) {
+				this.tempReading = this.tempType;
+			}
+		else {
+				this.tempReading = e.tempReading;
+			}
 	}
 	});
 
@@ -109,6 +120,6 @@ Crafty.c("Door", {
 		else {
 			this.color("#FF0000");
 		}
-		Crafty.e("TemperatureBlock").attr({x: this.x, y: this.y, w: this.w, h: this.h}).setTemp(e.temp);
+		Crafty.e("TemperatureBlock").attr({x: this.x, y: this.y, w: this.w, h: this.h}).setTemp(e);
 	}
 	});
