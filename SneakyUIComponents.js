@@ -8,6 +8,9 @@ Crafty.c("Player", {
 		this.gravity("Ground");
 		this.tempGauge = Crafty.e("UIElement").attr({x: this.x + 300, y: 400, w: 200, h: 200});
 		this.bind("EnterFrame", function() {
+			if(this.w <= 0) {
+				Crafty.scene("Defeat");
+			}
 			influences = this.hit("TemperatureBlock");
 			if(influences.length > 0) {
 				var curMax = 0;
