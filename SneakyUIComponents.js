@@ -39,8 +39,16 @@ Crafty.c("Player", {
 				booya = this.hit("Door");
 				if(booya.length > 0) {
 					theDoor = booya[0];
-					this.x = theDoor.obj.destination.x;
-					this.y = theDoor.obj.destination.y;
+					if(theDoor.obj.doorType == "Transfer") {
+						this.x = theDoor.obj.destination.x;
+						this.y = theDoor.obj.destination.y;
+						}
+					else if(theDoor.obj.doorType == "Win") {
+						Crafty.scene("Victory");
+						}
+					else if(theDoor.obj.doorType == "Lose") {
+						Crafty.scene("Defeat");
+						}
 					}
 			}
 		});
@@ -115,6 +123,7 @@ Crafty.c("TemperatureBlock", {
 
 Crafty.c("Door", {
 	destination: {x: 100, y: 100},
+	doorType: "Transfer",
 	init: function() {
 		this.addComponent("2D, Canvas, Color, Collision");
 		this.collision();

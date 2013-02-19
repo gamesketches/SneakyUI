@@ -98,7 +98,7 @@ window.onload = (function() {
 
 	var door3 = Crafty.e("Door").attr({x: 11000, y: 500, w: 200, h: 50});
 	// Door to room 8
-	door3.initializeVariables({destination: {x: 13000, y: 300}, color: "Red", temp: 100, tempReading: "Hot"});
+	door3.initializeVariables({destination: {x: 14000, y: 300}, color: "Red", temp: 100, tempReading: "Hot"});
 
 	Crafty.e("Ground").attr({x: 9800, y: 600, w: 1500, h: 10});
 
@@ -114,19 +114,23 @@ window.onload = (function() {
 	// Door to Win
 	door2.initializeVariables({destination: {x: 15000, y: 100}, color: "Red", temp: 0, tempReading: "Hot"});
 
-	var door3 = Crafty.e("Door").attr({x: 13000, y: 100, w: 200, h: 300});
+	door2.doorType = "Win";
+
+	var door3 = Crafty.e("Door").attr({x: 13000, y: 300, w: 200, h: 300});
 	// Door to Lose
-	door3.initializeVariables({destination: {x: 16000, y: 100}, color: "Blue", temp: 100, tempReading: "Cold"});
+	door3.initializeVariables({destination: {x: 15000, y: 100}, color: "Blue", temp: 100, tempReading: "Cold"});
+
+	door3.doorType = "Lose";
 	
-	Crafty.e("Ground").attr({x: 11800, y: 600, w: 1200, h: 10});
+	Crafty.e("Ground").attr({x: 11800, y: 600, w: 1700, h: 10});
 
 	// Room 8 ---------------------------------------------------------
 
-	var door1 = Crafty.e("Door").attr({x: 13000, y: 300, w: 200, h: 300});
+	var door1 = Crafty.e("Door").attr({x: 14000, y: 300, w: 200, h: 300});
 	// Door back to room 6
 	door1.initializeVariables({destination: { x: 11000, y: 100}, color: "Red", temp: 100, tempReading: "Hot"});
 
-	Crafty.e("Ground").attr({x: 12700, y: 600, w: 700, h: 10});
+	Crafty.e("Ground").attr({x: 13700, y: 600, w: 700, h: 10});
 
 	// Game Ending Entities
 
