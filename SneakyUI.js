@@ -102,6 +102,8 @@ window.onload = (function() {
 
 	Crafty.e("Ground").attr({x: 9800, y: 600, w: 11500, h: 10});
 
+	Crafty.e("Ground").attr({x: 10500, y: 500, w: 300, h: 100});
+
 	// Room 7 --------------------------------------------------
 
 	var door1 = Crafty.e("Door").attr({x: 12000, y: 300, w: 200, h: 300});
@@ -118,8 +120,21 @@ window.onload = (function() {
 	
 	Crafty.e("Ground").attr({x: 11800, y: 600, w: 1200, h: 10});
 
-	// ---------------------------------------------------------
+	// Room 8 ---------------------------------------------------------
 
+	var door1 = Crafty.e("Door").attr({x: 13000, y: 300, w: 200, h: 300});
+	// Door back to room 6
+	door1.initializeVariables({destination: { x: 11000, y: 100}, color: "Red", temp: 100, tempReading: "Hot"});
+
+	Crafty.e("Ground").attr({x: 12700, y: 600, w: 1000, h: 10});
+
+	// Game Ending Entities
+
+	Crafty.e("2D,Canvas,Collision,Win").attr({x: 15000, y: 100}).collision();
+
+	Crafty.e("2D,Canvas,Collision,Lose").attr({x: 16000, y: 100}).collision();
+
+	
 
 	var player = Crafty.e("Player").attr({x: 500, y: 300, w: 100, h: 50}).color("#00FF00");
 

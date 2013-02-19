@@ -45,6 +45,12 @@ Crafty.c("Player", {
 			}
 		});
 		this.collision();
+		this.onHit("Win", function() {
+			Crafty.scene("Victory"); 
+			});
+		this.onHit("Lose", function() {
+			Crafty.scene("Defeat");
+			});
 	},
 	modifyTempGauge: function() {
 		this.tempGauge.removeOldSprite();
